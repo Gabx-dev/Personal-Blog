@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from Blog.views import homePageView
+from Blog.views import postDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homePageView)
+    path('', homePageView, name='home'),
+    path('post/(<slug>)', postDetailView, name='post_detail')
 ]
