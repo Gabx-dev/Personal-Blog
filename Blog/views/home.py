@@ -1,15 +1,14 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.views.generic import TemplateView
 
 from Blog.models import Post
 
 
-def homePageView(request):
-  posts = Post.objects.filter().order_by('created_on')
-  template = loader.get_template('Blog/index.html')
+class HomePageView(TemplateView):
+  template_name = 'Blog/index.html'
+  model = Post
 
-  context = {
-    'post_list': posts
-  }
-
-  return HttpResponse(template.render(context, request))
+  def get_context_data(self):
+    data = super().get_context_data()
+    posts = Post.objects.filter().order_by('created_on')
+    data['post_list'] = posts
+    return data
