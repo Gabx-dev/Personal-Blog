@@ -1,2 +1,2 @@
-from .home import HomePageView
-from .post import PostDetailView
+from .home import homePageView
+from .post import postDetailView
