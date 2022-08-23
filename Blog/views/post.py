@@ -7,8 +7,8 @@ class PostDetailView(DetailView):
   model = Post
   template_name = 'Blog/post_detail.html'
 
-  def get_context_data(self):
-    data = super().get_context_data()
+  def get_context_data(self, *args, **kwargs):
+    data = super().get_context_data(*args, **kwargs)
 
     post = self.get_object()
     post.content = post.content.split('\n')
