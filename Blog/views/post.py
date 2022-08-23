@@ -1,16 +1,17 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.views.generic import DetailView
 
 from Blog.models import Post
 
 
-def postDetailView(request, slug):
-  post = Post.objects.get(slug=slug)
-  post.content = post.content.split('\n')
-  template = loader.get_template('Blog/post_detail.html')
+class PostDetailView(DetailView):
+  model = Post
+  template_name = 'Blog/post_detail.html'
 
-  context ={
-    'post': post
-  }
-  
-  return HttpResponse(template.render(context, request))
+  def get_context_data(self, *args, **kwargs):
+    data = super().get_context_data(*args, **kwargs)
+
+    post = self.get_object()
+    post.content = post.content.split('\n')
+    data['post'] = post
+
+    return data
