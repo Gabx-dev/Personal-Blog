@@ -12,6 +12,10 @@
         {% endfor %}
       </div>
     </div>
+
+    {% block comments %}
+      {% include 'Blog/comments.html' %}
+    {% endblock comments %}
     
     {% block sidebar %}
       {% include 'Blog/sidebar.html' %}
