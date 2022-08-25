@@ -1,0 +1,34 @@
+{% block comments %}
+{% load crispy_forms_tags %}
+<div class="col-md-8 card mb-4  mt-3 ">
+  <div class="card-body">
+    <h3>Deixe um comentário</h3>
+    <form method="post" style="margin-top: 1.3em;">
+      {{ comment_form | crispy }}
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary  btn-lg">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<div class="col-md-8 card mb-4  mt-3 ">
+  <div class="card-body">
+    {% if comment_count %}
+      <h2>{{ comment_count }} comentários</h2>
+
+      {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <h3 class="font-weight-bold">{{ comment.name }} -
+            <span class=" text-muted font-weight-normal">{{ comment.created_on }}</span>
+          </h3>
+          {% for paragraph in comment.content %}
+            <p>{{paragraph}}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock comments %}
